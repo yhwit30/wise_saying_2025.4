@@ -1,8 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class App {
 
@@ -16,7 +14,6 @@ public class App {
         System.out.println("== motivation 앱 실행 == ");
 
         int lastId = 1;
-        int listCount = 0;
         List<WiseSaying> wiseSayingList = new ArrayList<>();
 
         while(true){
@@ -34,10 +31,23 @@ public class App {
                 wiseSayingList.add(temp);
 
                 lastId++;
-                listCount++;
             }
             else if(cmd.equals("list")){
-                System.out.printf("등록된 명언 수 : %d\n", listCount);
+
+                if (wiseSayingList.size() == 0){
+                    System.out.println("등록된 명언이 없습니다.");
+                }
+                else{
+                    System.out.println("번호   /     인물     /    명언");
+                    System.out.println("=".repeat(30));
+                    Collections.reverse(wiseSayingList);
+                    for(WiseSaying temp : wiseSayingList){
+                        System.out.printf("%d        %s      %s\n", temp.getId(), temp.getPerson(), temp.getContent());
+
+                    }
+
+                }
+
             }
 
             else if (cmd.equals("exit")){
