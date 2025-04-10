@@ -3,24 +3,19 @@ package org.project;
 import org.system.controller.SystemController;
 import org.wiseSaying.controller.WiseSayingController;
 
-import java.util.Scanner;
-
 public class App {
 
-    private Scanner sc;
-
-    App(Scanner sc) {
-        this.sc = sc;
+    App() {
     }
 
     public void run() {
         SystemController systemController = new SystemController();
-        WiseSayingController wiseSayingController = new WiseSayingController(sc);
+        WiseSayingController wiseSayingController = new WiseSayingController();
 
         System.out.println("== motivation 앱 실행 == ");
         while (true) {
             System.out.print("명령어) ");
-            String cmd = sc.nextLine().trim();
+            String cmd = Container.getScanner().nextLine().trim();
             if (cmd.equals("add")) {
                 wiseSayingController.add();
             } else if (cmd.equals("list")) {
