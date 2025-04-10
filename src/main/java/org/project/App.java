@@ -1,6 +1,11 @@
-package org.example;
+package org.project;
 
-import java.util.*;
+import org.wiseSaying.entity.WiseSaying;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 
 public class App {
 
