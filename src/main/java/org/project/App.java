@@ -13,29 +13,31 @@ public class App {
         WiseSayingController wiseSayingController = new WiseSayingController();
 
         System.out.println("== motivation 앱 실행 == ");
-        while (true) {
+        byte system_status = 1;
+        while (system_status == 1) {
             System.out.print("명령어) ");
             String cmd = Container.getScanner().nextLine().trim();
-            if (cmd.startsWith("delete")) {
-                Rq rq = new Rq(cmd);
+            Rq rq = new Rq(cmd);
 
-                System.out.println(rq.getActionCode());
-                System.out.println(rq.getParams());
+            switch (rq.getActionCode()) {
 
-                wiseSayingController.remove();
-
-
-            } else if (cmd.equals("add")) {
-                wiseSayingController.add();
-            } else if (cmd.equals("list")) {
-                wiseSayingController.list();
-            } else if (cmd.equals("exit")) {
-                systemController.exit();
-                break;
-            } else {
-                System.out.println("존재하지 않는 명령어입니다.");
+                case "delete":
+                    wiseSayingController.remove();
+                    break;
+                case "add":
+                    wiseSayingController.add();
+                    break;
+                case "list":
+                    wiseSayingController.list();
+                    break;
+                case "exit":
+                    systemController.exit();
+                    system_status = 0;
+                    break;
+                default:
+                    System.out.println("존재하지 않는 명령어입니다.");
+                    break;
             }
-
         }
     }
 }
