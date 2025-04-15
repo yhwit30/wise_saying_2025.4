@@ -42,32 +42,55 @@ public class WiseSayingController {
         }
     }
 
-    public void remove(Rq rq) {
+    public void delete(Rq rq) {
 
         int id = rq.getIntParams("id", -1);
-
         if (id == -1) {
             System.out.println("id(정수)를 제대로 입력해주세요.");
-        }
-
-        WiseSaying removeTargetWiseSaying = findById(id);
-        if(removeTargetWiseSaying != null){
-            wiseSayingList.remove(removeTargetWiseSaying);
-            System.out.printf("%d번 명언이 삭제되었습니다.\n", id);
-        }
-        else{
-            System.out.printf("%d번 명언은 존재하지 않습니다.\n", id);
+        } else {
+            WiseSaying removeWiseSaying = findById(id);
+            if (removeWiseSaying != null) {
+                wiseSayingList.remove(removeWiseSaying);
+                System.out.printf("%d번 명언이 삭제되었습니다.\n", id);
+            } else {
+                System.out.printf("%d번 명언은 존재하지 않습니다.\n", id);
+            }
         }
     }
 
-    public WiseSaying findById(int id){
-        for(WiseSaying wiseSaying : wiseSayingList){
-            if(id == wiseSaying.getId()){
+    public void modify(Rq rq) {
+
+        int id = rq.getIntParams("id", -1);
+        if (id == -1) {
+            System.out.println("id(정수)를 제대로 입력해주세요.");
+        } else {
+            WiseSaying modifyWiseSaying = findById(id);
+
+            if (modifyWiseSaying != null) {
+                System.out.println("명언(기존) : " + modifyWiseSaying.getContent());
+                System.out.println("인물(기존) : " + modifyWiseSaying.getPerson());
+
+                System.out.print("명언 : ");
+                String newContent = Container.getScanner().nextLine();
+                System.out.print("인물 : ");
+                String newPerson = Container.getScanner().nextLine();
+                modifyWiseSaying.setContent(newContent);
+                modifyWiseSaying.setPerson(newPerson);
+                System.out.printf("%d번 명언이 수정되었습니다.\n", modifyWiseSaying.getId());
+            } else {
+                System.out.printf("%d번 명언은 존재하지 않습니다.\n", id);
+            }
+        }
+    }
+
+
+    public WiseSaying findById(int id) {
+        for (WiseSaying wiseSaying : wiseSayingList) {
+            if (id == wiseSaying.getId()) {
                 return wiseSaying;
             }
         }
         return null;
     }
-
 
 }
