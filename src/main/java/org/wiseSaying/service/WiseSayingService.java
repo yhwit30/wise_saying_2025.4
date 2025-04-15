@@ -1,29 +1,29 @@
 package org.wiseSaying.service;
 
 import org.wiseSaying.entity.WiseSaying;
+import org.wiseSaying.repository.WiseSayingRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WiseSayingService {
     int lastId = 1;
-    List<WiseSaying> wiseSayingList = new ArrayList<>();
+
+    WiseSayingRepository wiseSayingRepository = new WiseSayingRepository();
 
     public int add(String content, String person) {
         int id = lastId;
         WiseSaying temp = new WiseSaying(id, content, person);
-        wiseSayingList.add(temp);
+        wiseSayingRepository.add(temp);
         lastId++;
-
         return id;
     }
 
     public List<WiseSaying> getList() {
-        return wiseSayingList;
+        return wiseSayingRepository.getList();
     }
 
     public void delete(WiseSaying removeWiseSaying) {
-        wiseSayingList.remove(removeWiseSaying);
+        wiseSayingRepository.delete(removeWiseSaying);
     }
 
     public int modify(WiseSaying modifyWiseSaying, String newContent, String newPerson) {
@@ -34,6 +34,7 @@ public class WiseSayingService {
     }
 
     public WiseSaying findById(int id) {
+        List<WiseSaying> wiseSayingList = wiseSayingRepository.getList();
         for (WiseSaying wiseSaying : wiseSayingList) {
             if (id == wiseSaying.getId()) {
                 return wiseSaying;
